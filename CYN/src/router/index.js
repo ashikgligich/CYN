@@ -17,6 +17,11 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue'),
     },
+    {
+      path: '/users/:id', //temp name 'user' until we get data etc
+      name: ':user',
+      component: () => import('../components/Portfolio.vue'), //temporary until file structure decided
+    }
   ],
 })
 
