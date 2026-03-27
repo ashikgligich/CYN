@@ -1,21 +1,26 @@
 <script setup>
-import { onBeforeUnmount, ref } from 'vue';
-const linkNumber = ref(1);
-const fileNumber = ref(1);
+import { onBeforeUnmount, ref } from 'vue'
+const linkNumber = ref(1)
+const fileNumber = ref(1)
 
-const firstName = defineModel('firstName', { default: '-69420' });
-const lastName = defineModel('lastName', { default: '-69420' });
-const nickname = defineModel('nickname', { default: '-69420' });
-const description = defineModel('description', { default: '-69420' });
-const email = defineModel('email', { default: '-69420' });
-const links = defineModel('links', { default: [] });                          
-const uploadedImage = defineModel('uploadedImage', { default: null });        //the files will probably be consolidated to a single variable / array
-const uploadedModelFile = defineModel('uploadedModelFile', { default: null });
+//should bind these to the store for some form of permanent storage
+
+const firstName = defineModel('firstName', { default: '-69420' })
+const lastName = defineModel('lastName', { default: '-69420' })
+const nickname = defineModel('nickname', { default: '-69420' })
+const description = defineModel('description', { default: '-69420' })
+const email = defineModel('email', { default: '-69420' })
+const links = defineModel('links', { default: [] })
+const uploadedImage = defineModel('uploadedImage', { default: null }) //the files will probably be consolidated to a single variable / array
+const uploadedModelFile = defineModel('uploadedModelFile', { default: null })
+
+//prototype array for files
+const files = defineModel('files', { default: [{ name: '', category: '', value: '' }] })
 
 //add array for dropdown to associate file type with file in array
 
-const imagePreviewUrl = ref('');
-const modelFileError = ref('');
+const imagePreviewUrl = ref('')
+const modelFileError = ref('')
 const supportedModelExtensions = [
   '.obj',
   '.stl',
@@ -28,54 +33,54 @@ const supportedModelExtensions = [
   '.fbx',
   '.glb',
   '.gltf',
-];
+]
 
 function onImageSelected(event) {
-  const [file] = event.target.files ?? [];
-  uploadedImage.value = file ?? null;
+  const [file] = event.target.files ?? []
+  uploadedImage.value = file ?? null
 
   if (imagePreviewUrl.value) {
-    URL.revokeObjectURL(imagePreviewUrl.value);
-    imagePreviewUrl.value = '';
+    URL.revokeObjectURL(imagePreviewUrl.value)
+    imagePreviewUrl.value = ''
   }
 
   if (file) {
-    imagePreviewUrl.value = URL.createObjectURL(file);
+    imagePreviewUrl.value = URL.createObjectURL(file)
   }
 }
 
 function onModelSelected(event) {
-  const [file] = event.target.files ?? [];
+  const [file] = event.target.files ?? []
 
   if (!file) {
-    uploadedModelFile.value = null;
-    modelFileError.value = '';
-    return;
+    uploadedModelFile.value = null
+    modelFileError.value = ''
+    return
   }
 
-  const fileName = file.name.toLowerCase();
-  const isSupported = supportedModelExtensions.some((ext) => fileName.endsWith(ext));
+  const fileName = file.name.toLowerCase()
+  const isSupported = supportedModelExtensions.some((ext) => fileName.endsWith(ext))
 
   if (!isSupported) {
-    uploadedModelFile.value = null;
-    modelFileError.value = 'Unsupported model format. Please upload a valid 3D model file.';
-    event.target.value = '';
-    return;
+    uploadedModelFile.value = null
+    modelFileError.value = 'Unsupported model format. Please upload a valid 3D model file.'
+    event.target.value = ''
+    return
   }
 
-  uploadedModelFile.value = file;
-  modelFileError.value = '';
+  uploadedModelFile.value = file
+  modelFileError.value = ''
 }
 
 onBeforeUnmount(() => {
   if (imagePreviewUrl.value) {
-    URL.revokeObjectURL(imagePreviewUrl.value);
+    URL.revokeObjectURL(imagePreviewUrl.value)
   }
-});
+})
 </script>
 
 <template>
-    <div class="portfolio-inputs">
+  <div class="portfolio-inputs">
     <div class="input-group">
       <label for="first-name">First Name:</label>
       <input type="string" id="first-name" v-model="firstName" />
@@ -103,10 +108,10 @@ onBeforeUnmount(() => {
 
     <button @click="linkNumber++">Add Link</button>
     <button @click="linkNumber > 1 ? linkNumber-- : null">Remove Link</button>
-    
-    <div v-for="i in linkNumber" class="links">
+
+    <div v-for="i in linkNumber" :key="`link-${i}`" class="links">
       <label for="links">Links:</label>
-      <input type="string" id="links" v-model="links[i-1]" />
+      <input type="string" id="links" v-model="links[i - 1]" />
     </div>
 
     <div class="input-group">
@@ -129,8 +134,8 @@ onBeforeUnmount(() => {
     <button @click="fileNumber++">Add File</button>
     <button @click="fileNumber > 1 ? fileNumber-- : null">Remove File</button>
     <!-- fix this to v-model to an array -->
-     <!-- v-model should ideally bind to an object's property so type of file to .value.category ? and .value.file for actual file -->
-      <!-- consolidate to single variable / array / input box -->
+    <!-- v-model should ideally bind to an object's property so type of file to .value.category ? and .value.file for actual file -->
+    <!-- consolidate to single variable / array / input box -->
     <div v-for="i in fileNumber" :key="i" class="input-group">
       <label for="model-upload">Upload Model File:</label>
       <input
