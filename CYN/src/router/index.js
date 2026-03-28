@@ -18,10 +18,15 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue'),
     },
     {
-      path: '/users/:id', //temp name 'user' until we get data etc
+      path: '/:user', //temp name 'user' until we get data etc
       name: ':user',
       component: () => import('../components/Portfolio.vue'), //temporary until file structure decided
-    }
+    },
+    {
+      path: '/:user/edit', //temp name 'user edit' until we get data etc
+      name: ':user/editprofile', //this route is used for accessing place to edit user profile, should password lock.
+      component: () => import('../components/PortfolioInputs.vue'), //temporary until file structure decided
+    },
   ],
 })
 
