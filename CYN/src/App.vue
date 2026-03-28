@@ -4,7 +4,7 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <!-- <header>
+  <header>
     <img alt="CYN logo" class="logo" src="@/assets/CYNblank.png" width="125" height="125" />
 
     <div class="wrapper">
@@ -15,7 +15,7 @@ import { RouterLink, RouterView } from 'vue-router'
         <RouterLink to="/about">About</RouterLink>
       </nav>
     </div>
-  </header> -->
+  </header>
 
   <RouterView />
 </template>

@@ -1,5 +1,5 @@
 <template>
-    <h1>hiaipsbndoujbea fjeb wdjkvb </h1>
+    <h1>Pdf Viewer</h1>
     <canvas id="the-canvas" style="border: 1px solid black; direction: ltr"></canvas>
 </template>
 
