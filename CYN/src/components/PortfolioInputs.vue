@@ -17,7 +17,7 @@ const uploadedModelFile = defineModel('uploadedModelFile', { default: null })
 //prototype array for files
 const files = defineModel('files', { default: [{ name: '', category: '', value: '' }] })
 const tempFileObject = ref({ name: '', category: '', value: null }) //cast object to put into array
-const fileName = defineModel('fileName', { default: '' }) //v-model these input fields and wipe their values once user presses upload file.
+const fileName = defineModel('fileName', { default: '' }) //v-model these input fields and wipe their values once user presses uploads file.
 const fileCategory = defineModel('fileCategory', { default: '' })
 const fileValue = defineModel('fileValue', { default: null })
 //add array for dropdown to associate file type with file in array
