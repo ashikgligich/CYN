@@ -1,4 +1,7 @@
 <script setup>
+import { dataStore } from '@/stores/dataStore'
+const store = dataStore() //use this to get info to populate the portfolio
+
 defineProps({
   firstName: {
     type: String,
@@ -8,7 +11,7 @@ defineProps({
     type: String,
     required: true,
   },
-})
+}) //maybe no props, just pull from the store
 </script>
 
 <template>
